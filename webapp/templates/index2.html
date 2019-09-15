@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Color webapp demo</title>
+    <link rel="stylesheet" type="text/css" href="static/css/view.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="p-3 mb-2 bg-primary text-white">
+    <h1>カラーコーディネート診断</h1>
+    </div>
+<div class="bg-primary clearfix">  
+  <form method="post" action="/send" enctype="multipart/form-data">
+    <input type="file" id="img_file" name="img_file">
+    <input type="submit" value="送信">
+  </form>
+  </div>
+  <div class="row">
+      <div class="card" style="width: 20rem; height: 20rem;">  
+  {% if raw_img_url %}
+    <img class="card-img-top" src="{{ raw_img_url }}">
+    {% else %}
+  <img class="card-img-top" src="static/image/l_e_others_500.png">
+    {% endif %}
+    <div class="card-body">
+    <div class="p-3 mb-2 bg-primary text-white">        
+    <h5 class="card-title">入力画像</h5>
+    </div>
+    </div>
+
+</div>
+<div class="card" style="width: 20rem; height: 20rem;">  
+  {% if new_img_url %}
+    <img class="card-img-top" src="{{ new_img_url }}">
+  {% else %}
+  <img class="card-img-top" src="static/image/l_e_others_500.png">
+  {% endif %}
+
+    <div class="card-body">    
+    <div class="p-3 mb-2 bg-primary text-white">    
+    <h5 class="card-title">服の識別結果</h5>
+    </div></div>
+  
+</div>
+</div>
+<br><br><br><br><br>
+  <p>
+  {% if output==2 %}
+  <div class="alert alert-danger" role="alert">
+  この服の組み合わせは似合わないかもしれません。   
+  </div>
+  {% endif %}
+  {% if output==1 %}
+  <div class="alert alert-primary" role="alert">
+  この服の組み合わせは無難だと思います。  
+  </div>
+  {% endif %}
+  {% if output==0 %}
+  <div class="alert alert-success" role="alert">
+  この服の組み合わせはよく似合うと思います！！
+  </div>
+  {% endif %}
+  
+  </p>
+</body>
+</html>
